@@ -96,84 +96,104 @@ let bol = {
 // Avec l'objet personnage, utiliser la method seDeplacer et de passer en paramètre l'objet maison
 // Afficher un message tel que :
 // console.log(personnage.nom + " est actuellement à la " + personnage.lieu);
-
-laurie.seDeplacer(maison);
-console.log(`${laurie.nom} est actuellement à la ${laurie.lieu}.`)
+setTimeout(() => {
+    laurie.seDeplacer(maison);
+    console.log(`${laurie.nom} est actuellement à la ${laurie.lieu}.`)
+}, 2000);
 
 // Pour aller à l'épicerie acheter les ingrédients pour l'omelette, je répète la première étape en changeant le parametre de la method seDeplacer par l'epicerie
-maison.personnes.shift();
-laurie.seDeplacer(epicerie);
 
+setTimeout(() => {
+    maison.personnes.shift();
+    laurie.seDeplacer(epicerie);
+    console.log(`${laurie.nom} va à l'épicerie`)
+}, 4000);
 // Mon personnage prend un des paniers dans l'épicerie (il récupère le panier dans les objets de l'épicerie et le met dans sa main droite.)
+setTimeout(() => {
+    laurie.mainDroite.push(epicerie.paniers.shift());
+    console.log(`${laurie.nom} a pris un ${laurie.mainDroite[0].type}`)
+}, 6000);
 
-laurie.mainDroite.push(epicerie.paniers.shift());
-
-// Il doit y avoir un objet dans la main droite de personnage et un panier en moins. Vérifier avec des console.log() ensuite afficher un message du type : 
-// console.log(`${personnage.nom} a pris un ${type du panier}`);
-
-console.log(`${laurie.nom} a pris un ${laurie.mainDroite[0].type}`)
 
 // Je créer une boucle qui va prendre chaque élément (ingrédient) du contenu de l'épicerie (1 à 1) et en faire une COPIE dans le panier du personnage
 // Afficher un message à chaque ingrédient pris
-
-epicerie.contenu.forEach((element, index) => {
-    laurie.mainDroite[0].contenu[index] = element;
-    console.log(`${laurie.nom} prend ${element.nom} et le met dans son panier`);
-});
-
+setTimeout(() => {
+    epicerie.contenu.forEach((element, index) => { 
+        laurie.mainDroite[0].contenu[index] = element;
+        console.log(`${laurie.nom} prend ${element.nom} et le met dans son panier`);              
+    });
+}, 8000);
 // Payer chaque ingrédient récupéré dans le panier. Avec une boucle aussi, on va les passer 1 à 1 dans la fonction payerArticle()
-
-laurie.mainDroite[0].contenu.forEach((element) => {
+setTimeout(() => {
+    laurie.mainDroite[0].contenu.forEach((element) => {
     laurie.payerArticle(element);
 });
+    console.log(`Il reste ${laurie.argent} euros a ${laurie.nom}`);
+}, 10000);
 
-// Afficher un message de ce qu'il reste d'argent sur le personnage.
-console.log(`Il reste ${laurie.argent} euros a ${laurie.nom}`);
+
 
 // rentrer à la maison (comme ça on pourra cuisiner)
-epicerie.personnes.shift()
-laurie.seDeplacer(maison);
 
-// mettre chaque ingrédient dans le bol (1 à 1 donc avec une boucle)
-for(let i = 0 ; laurie.mainDroite[0].contenu[0] ; i++){
-    console.log(`${laurie.nom} met ${laurie.mainDroite[0].contenu[0].nom} dans le bol`)
-    bol.contenu.push(laurie.mainDroite[0].contenu.shift());
-    i--;
-}
+setTimeout(() => {
+    epicerie.personnes.shift()
+    laurie.seDeplacer(maison);
+
+    for(let i = 0 ; laurie.mainDroite[0].contenu[0] ; i++){
+        console.log(`${laurie.nom} met ${laurie.mainDroite[0].contenu[0].nom} dans le bol`)
+        bol.contenu.push(laurie.mainDroite[0].contenu.shift());
+        i--;  
+    }
+}, 12000);
 
 // // Retourner à l'épicerie pour rapporter le panier. (donc seDeplacer puis enlever le panier de la main droite et le remetre dans les paniers de l'épicerie.)
-maison.personnes.shift();
-laurie.seDeplacer(epicerie);
-epicerie.paniers.push(laurie.mainDroite.shift());
-console.log(`${laurie.nom} remet le panier dans l'épicerie`)
+
+setTimeout(() => {
+    maison.personnes.shift();
+    laurie.seDeplacer(epicerie);
+    epicerie.paniers.push(laurie.mainDroite.shift());
+    console.log(`${laurie.nom} retourne à l'épicerie pour rendre le panier`)
+}, 14000);
 
 // Retourner à la maison pour continuer l'omelette
-epicerie.personnes.shift();
-laurie.seDeplacer(maison);
-console.log(`${laurie.nom} retourne à la ${laurie.lieu} pour cusiner`);
+
+setTimeout(() => {
+    epicerie.personnes.shift();
+    laurie.seDeplacer(maison);
+    console.log(`${laurie.nom} retourne à la ${laurie.lieu} pour cuisiner`);
+}, 16000);
 
 // Vérifier chaque ingrédient dans le bol et le couper seulement s'il est entier ! Pour ça on utilise la méthode couper de personnage
 
-bol.contenu.forEach(element => {
-    if(element.etat == 'entier'){
-        laurie.couper(element, couteau);
-        console.log(`${laurie.nom} coupe ${element.nom} avec le couteau`);
-    }
-});
+setTimeout(() => {
+    bol.contenu.forEach(element => {
+        if(element.etat == 'entier'){
+            setTimeout(() => {
+                laurie.couper(element, couteau);
+                console.log(`${laurie.nom} coupe ${element.nom} avec le couteau`);
+            }, 1000); 
+        }
+    });
+}, 18000);
+
 
 // Mélanger le contenu du bol avec la méthode melanger. on va nommer ce mélange une 'omelette' (à passer en param).
 
 // Afficher un message avec le nouveau mélange
 
-bol.melanger('omelette');
-console.log(`${laurie.nom} melange les ingredients. Il y a maintenant une ${bol.contenu[0].nom} dans le bol.`)
+setTimeout(() => {
+    bol.melanger('omelette');
+    console.log(`${laurie.nom} melange les ingredients. Il y a maintenant une ${bol.contenu[0].nom} dans le bol.`)
+}, 20000);
 
-console.log(bol.contenu);
 
 // vider le contenu du bol dans la poele. Il ne doit plus rien avoir dans le bol et y avoir juste l'omelette pas cuite.
 
-poele.contenu.push(bol.contenu.shift());
+setTimeout(() => {
+    poele.contenu.push(bol.contenu.shift());
+    console.log(`${laurie.nom} verse le contenu du bol dans la poêle et va maintenant mettre l'omelette a cuire`);
+}, 22000);
 
-console.log(`${laurie.nom} verse le contenu du bol dans la poêle et va maintenant mettre l'omelette a cuire`);
-
-poele.cuire();
+setTimeout(() => {
+   poele.cuire(); 
+}, 24000);
